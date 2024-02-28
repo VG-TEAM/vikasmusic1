@@ -5,10 +5,13 @@ from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
 
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 import config
-from VIPMUSIC import app
+from VIPMUSUC import app
 from VIPMUSIC.misc import _boot_
 from VIPMUSIC.plugins.sudo.sudoers import sudoers_list
+from VIPMUSIC.utils.database import get_served_chats, get_served_users, get_sudoers
+from VIPMUSIC.utils import bot_sys_stats
 from VIPMUSIC.utils.database import (
     add_served_chat,
     add_served_user,
@@ -19,18 +22,20 @@ from VIPMUSIC.utils.database import (
 )
 from VIPMUSIC.utils.decorators.language import LanguageStart
 from VIPMUSIC.utils.formatters import get_readable_time
-from VIPMUSIC.utils.inline import first_page, private_panel, start_panel
+from VIPMUSIC.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
+#--------------------------
 
-
-YUMI_PICS = [
-"https://telegra.ph/file/3ed81ef4e352a691fb0b4.jpg",
-"https://telegra.ph/file/3134ed3b57eb051b8c363.jpg",
-"https://telegra.ph/file/6ca0813b719b6ade1c250.jpg",
-"https://telegra.ph/file/5a2cbb9deb62ba4b122e4.jpg",
-"https://telegra.ph/file/cb09d52a9555883eb0f61.jpg"
+NEXI_VID = [
+"https://telegra.ph/file/1a3c152717eb9d2e94dc2.mp4",
+"https://graph.org/file/ba7699c28dab379b518ca.mp4",
+"https://graph.org/file/83ebf52e8bbf138620de7.mp4",
+"https://graph.org/file/82fd67aa56eb1b299e08d.mp4",
+"https://graph.org/file/318eac81e3d4667edcb77.mp4",
+"https://graph.org/file/7c1aa59649fbf3ab422da.mp4",
+"https://graph.org/file/2a7f857f31b32766ac6fc.mp4",
 
 ]
 
@@ -43,9 +48,9 @@ async def start_pm(client, message: Message, _):
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
-            keyboard = first_page(_)
-            return await message.reply_photo(
-                photo=config.START_IMG_URL,
+            keyboard = help_pannel(_)
+            return await message.reply_video(
+                random.choice(NEXI_VID),
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
                 reply_markup=keyboard,
             )
@@ -96,8 +101,8 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
-        await message.reply_photo(
-            photo=config.START_IMG_URL,
+        await message.reply_video(
+            random.choice(NEXI_VID),
             caption=_["start_2"].format(message.from_user.mention, app.mention),
             reply_markup=InlineKeyboardMarkup(out),
         )
@@ -113,8 +118,8 @@ async def start_pm(client, message: Message, _):
 async def start_gp(client, message: Message, _):
     out = start_panel(_)
     uptime = int(time.time() - _boot_)
-    await message.reply_photo(
-        photo=config.START_IMG_URL,
+    await message.reply_video(
+        random.choice(NEXI_VID),
         caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
         reply_markup=InlineKeyboardMarkup(out),
     )
@@ -148,10 +153,10 @@ async def welcome(client, message: Message):
                     return await app.leave_chat(message.chat.id)
 
                 out = start_panel(_)
-                await message.reply_photo(
-                    random.choice(YUMI_PICS),
+                await message.reply_video(
+                    random.choice(NEXI_VID),
                     caption=_["start_3"].format(
-                        message.from_user.first_name,
+                        message.from_user.mention,
                         app.mention,
                         message.chat.title,
                         app.mention,
