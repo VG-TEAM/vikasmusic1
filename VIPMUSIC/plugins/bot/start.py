@@ -7,7 +7,7 @@ from youtubesearchpython.__future__ import VideosSearch
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 import config
-from VIPMUSUC import app
+from VIPMUSIC import app
 from VIPMUSIC.misc import _boot_
 from VIPMUSIC.plugins.sudo.sudoers import sudoers_list
 from VIPMUSIC.utils.database import get_served_chats, get_served_users, get_sudoers
