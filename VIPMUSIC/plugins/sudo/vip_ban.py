@@ -42,7 +42,7 @@ unban = ["unban",]
 mute = ["mute","silent","shut"]
 unmute = ["unmute","speak","free"]
 kick = ["kick", "out","nikaal","nikal"]
-promote = ["promote","adminship"]
+promote = ["promote","adminship","dedo"]
 demote = ["demote","lelo"]
 group = ["group"]
 channel = ["channel"]
@@ -52,7 +52,7 @@ channel = ["channel"]
 # ========================================= #
 
 
-@app.on_message(filters.command(["ip","iyush"], prefixes=["V", "P"]) & admin_filter)
+@app.on_message(filters.command(["ina","inata"], prefixes=["H", "h"]) & admin_filter)
 async def restriction_app(app :app, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
