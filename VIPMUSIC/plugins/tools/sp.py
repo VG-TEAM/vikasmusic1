@@ -6,6 +6,10 @@ from pyrogram.types import *
 from VIPMUSIC.utils.vip_ban import admin_filter
 from VIPMUSIC.misc import SUDOERS
 
+# Assuming `wlcm` is an instance of a database client
+# Make sure to define it properly based on your database setup
+wlcm = YourDatabaseClient()
+
 @app.on_chat_member_updated(filters.group, group=-5)
 async def greet_new_member(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
@@ -34,8 +38,9 @@ async def greet_new_member(_, member: ChatMemberUpdated):
                     can_manage_video_chats=True,
                        )
                      )
-        except Exception as e:
-            LOGGER.error(f"ChatAdminRequired: {e}")
+            await app.send_message(chat_id, f"ᴡᴇʟᴄᴏᴍᴇ, {user.mention} ʙᴏss😊")
+        except ChatAdminRequired:
+            LOGGER.error("Bot should be admin to promote members.")
         except Exception as e:
             LOGGER.error(f"Error promoting member: {e}")            
-      
+                
